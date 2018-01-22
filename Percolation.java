@@ -9,10 +9,12 @@ public class Percolation {
     }
    }
   }
-  public void Open(int row, int col) { }
+  public void Open(int row, int col) { 
+    openSites[row][col] = true;
+  }
   public boolean IsOpen(int row, int col) {
     // has been opened, can now count as connecting other nodes together
-   return false; 
+   return openSites[row][col]; 
   }
   public boolean IsFull(int row, int col) {
     // Is open but also there exists a path from node(row, col) using only open nodes to the top row
