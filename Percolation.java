@@ -1,6 +1,13 @@
 public class Percolation {
+  private boolean[][] openSites;
   public Percolation (int n) {
-   // initialize all sites to a blocked status 
+   // initialize all sites to a blocked status
+   this.openSites = new boolean[n][n];
+   for(boolean[] row : this.openSites) {
+     for(boolean site : row) {
+       site = false;
+    }
+   }
   }
   public void Open(int row, int col) { }
   public boolean IsOpen(int row, int col) {
@@ -17,6 +24,7 @@ public class Percolation {
   }
   
   public static void main(String args[]) {
-   // test percolation class 
+   // test percolation class
+
   }
 }
