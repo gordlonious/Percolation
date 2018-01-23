@@ -1,6 +1,13 @@
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import java.lang.IndexOutOfBoundsException;
+import java.lang.IllegalArgumentException;
+
 public class Percolation {
   private boolean[][] openSites;
+  private int gridSize;
   public Percolation (int n) {
+   if(n <= 0) throw new IllegalArgumentException("Illegal Percolation parameter");
+   this.gridSize = n;
    // initialize all sites to a blocked status
    this.openSites = new boolean[n][n];
    for(boolean[] row : this.openSites) {
@@ -9,15 +16,17 @@ public class Percolation {
     }
    }
   }
-  public void Open(int row, int col) { 
+  public void Open(int row, int col) {
+    if(row < 0 || row > (gridSize - 1) || col < 0 || col > (gridSize - 1)) throw new IndexOutOfBoundsException("Open parameter(s) out of range");
     openSites[row][col] = true;
   }
   public boolean IsOpen(int row, int col) {
     // has been opened, can now count as connecting other nodes together
+   if(row < 0 || row > (gridSize - 1) || col < 0 || col > (gridSize - 1)) throw new IndexOutOfBoundsException("IsOpen parameter(s) out of range");
    return openSites[row][col]; 
   }
   public boolean IsFull(int row, int col) {
-    // Is open but also there exists a path from node(row, col) using only open nodes to the top row
+    // connected to open site in top row
    return false; 
   }
   public boolean Percolates() {
