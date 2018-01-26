@@ -20,64 +20,64 @@ public class Percolation {
     this.openSites = new boolean[n][n];
     wUnionUF = new WeightedQuickUnionUF((n * n) + 5);
     for (int i = 0; i < n; i++)
-      wUnionUF.union(i, top);
+      wUnionUF.union(twoDToOneD(i,0), top);
     for (int i = 0; i < n; i++)
-      wUnionUF.union(twoDToOneD(i, n - 1), bottom);
-
-    //  for(boolean[] row : this.openSites) {
-    //    for(boolean site : row) {
-    //      site = false;
-    //   }
-    //  }
+      wUnionUF.union(twoDToOneD(i,n-1), bottom);
   }
 
-  public void Open(int row, int col) {
+  public void open(int row, int col) {
     if (row < 0 || row > (gridSize - 1) || col < 0 || col > (gridSize - 1))
       throw new IndexOutOfBoundsException("Open parameter(s) out of range");
-    openSites[row][col] = true;
-    if (IsOpen(row, col - 1))
-      wUnionUF.union(twoDToOneD(row, col), twoDToOneD(row, col - 1));
-    if (IsOpen(row, col + 1))
-      wUnionUF.union(twoDToOneD(row, col), twoDToOneD(row, col + 1));
-    if (IsOpen(row - 1, col))
-      wUnionUF.union(twoDToOneD(row, col), twoDToOneD(row - 1, col));
-    if (IsOpen(row + 1, col))
-      wUnionUF.union(twoDToOneD(row, col), twoDToOneD(row + 1, col));
+    openSites[col][row] = true;
+    if (isInBounds(row, col-1) && isOpen(row, col - 1))
+      wUnionUF.union(twoDToOneD(col, row), twoDToOneD(col - 1, row));
+    if (isInBounds(row, col+1) && isOpen(row, col + 1))
+      wUnionUF.union(twoDToOneD(col, row), twoDToOneD(col + 1, row));
+    if (isInBounds(row-1, col) && isOpen(row - 1, col))
+      wUnionUF.union(twoDToOneD(col, row),twoDToOneD(col, row - 1));
+    if (isInBounds(row+1, col) && isOpen(row + 1, col))
+      wUnionUF.union(twoDToOneD(col, row),twoDToOneD(col, row + 1));
   }
-
-  public boolean IsOpen(int row, int col) {
+ 
+  public boolean isOpen(int row, int col) {
     // has been opened, can now count as connecting other nodes together
     if (row < 0 || row > (gridSize - 1) || col < 0 || col > (gridSize - 1))
-      return false;
-    // throw new IndexOutOfBoundsException("IsOpen parameter(s) out of range");
-    return openSites[row][col];
+      throw new IndexOutOfBoundsException("IsOpen parameter(s) out of range");
+    return openSites[col][row];
   }
 
-  public boolean IsFull(int row, int col) {
+  public boolean isFull(int row, int col) {
     // connected to open site in top row
-    int i = twoDToOneD(row, col);
-    wUnionUF.connected(i, top);
-    return false;
+    int i = twoDToOneD(col, row);
+    return wUnionUF.connected(i, top) && isOpen(row, col);
   }
 
-  public boolean Percolates() {
+  public boolean percolates() {
     // is there a Full node on the bottom row from which a path exists to the top row
     return wUnionUF.connected(bottom, top);
+  }
+
+  private boolean isInBounds(int row, int col)
+  {
+    return !(row < 0 || row > (gridSize - 1) || col < 0 || col > (gridSize - 1));
   }
 
   private int twoDToOneD(int x, int y) {
     return y + (x * gridSize);
   }
 
-  public static void main(String args[]) {
+  public static void main(String args[]) 
+  {
     // test percolation class
     Scanner input = new Scanner(System.in);
     Percolation p = new Percolation(10);
-    for (int i = 0; i < 5; i++) {
-      p.Open(i, 8);
+    for (int i = 0; i < 10; i++) 
+    {
+      p.open(i, 5);
     }
     //System.out.println(p.wUnionUF.find(104));
-    System.out.println(p.IsFull(5, 5));
+    //System.out.println(p.IsFull(5, 5));
+    System.out.println(p.percolates());
 
     input.close();
   }
