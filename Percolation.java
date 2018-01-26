@@ -49,7 +49,7 @@ public class Percolation {
   public boolean isFull(int row, int col) {
     // connected to open site in top row
     int i = twoDToOneD(col, row);
-    return wUnionUF.connected(i, top) && isOpen(row, col);
+    return isOpen(row, col) && wUnionUF.connected(i, top);
   }
 
   public boolean percolates() {
