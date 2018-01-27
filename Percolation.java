@@ -1,4 +1,4 @@
-package Percolation.Percolation;
+//package Percolation.Percolation;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import java.lang.IndexOutOfBoundsException;
