@@ -26,7 +26,13 @@ public class PercolationTest {
 	}
 	
 	public static void main(String[] args) {
-		PercolationTest t = new PercolationTest(5);
-		t.runAll();
+		if (args.length == 0) {
+			PercolationTest t = new PercolationTest(5);
+			t.runAll();
+		}
+		else {
+			//PercolationVisualizer.draw(new Percolation(5), 5);
+			PercolationVisualizer.main(new String[1]);
+		}
 	}
 }

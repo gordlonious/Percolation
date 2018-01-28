@@ -1,5 +1,3 @@
-package Percolation.Percolation;
-
 /******************************************************************************
  *  Compilation:  javac PercolationVisualizer.java
  *  Execution:    java PercolationVisualizer input.txt
@@ -64,10 +62,9 @@ public class PercolationVisualizer {
 
     }
 
-    private static void simulateFromFile(String filename) {
+    public static void simulateFromFile(int n) {
         Scanner in = new Scanner(System.in);
         // int n = in.readInt();
-        int n = 10;
         Percolation percolation = new Percolation(n);
 
         // turn on animation mode
@@ -79,7 +76,7 @@ public class PercolationVisualizer {
         StdDraw.pause(DELAY);
         int i;
         int j;
-        while ((i = in.nextInt()) != 27) {
+        while ((i = in.nextInt()) != -1) {
             j = in.nextInt();
             percolation.open(i, j);
             draw(percolation, n);
@@ -99,6 +96,6 @@ public class PercolationVisualizer {
 
     public static void main(String[] args) {
         //String filename = args[0];
-        simulateFromFile("Cake");
+        simulateFromFile(3);
     }
 }
