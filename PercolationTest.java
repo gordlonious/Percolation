@@ -9,6 +9,7 @@ public class PercolationTest {
 	public void runAll() {
 		System.out.println(TestHorizontalPercolation());
 		System.out.println(TestDiagonalLinePercolation());
+		System.out.println(TestBackwash());
 	}
 	
 	public boolean TestHorizontalPercolation() {
@@ -23,6 +24,14 @@ public class PercolationTest {
 			this.p.open(pSize - (i+1), i);
 		}
 		return !this.p.percolates();
+	}
+	
+	public boolean TestBackwash() {
+		for (int i = 0; i < this.pSize; i++) {
+			this.p.open(0, i);
+		}
+		this.p.open(0, this.pSize - 1);
+		return !this.p.isOpen(0, pSize - 1);
 	}
 	
 	public static void main(String[] args) {
