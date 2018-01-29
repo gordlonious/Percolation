@@ -26,6 +26,7 @@ public class PercolationVisualizer {
 
     // delay in miliseconds (controls animation speed)
     private static final int DELAY = 100;
+	public static Percolation percolation;
 
     // draw n-by-n percolation system
     public static void draw(Percolation percolation, int n) {
@@ -65,7 +66,7 @@ public class PercolationVisualizer {
     public static void simulateFromFile(int n) {
         Scanner in = new Scanner(System.in);
         // int n = in.readInt();
-        Percolation percolation = new Percolation(n);
+        percolation = new Percolation(n);
 
         // turn on animation mode
         StdDraw.enableDoubleBuffering();
