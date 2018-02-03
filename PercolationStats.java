@@ -74,11 +74,6 @@ public class PercolationStats {
 		return (m + (tstddev / sqrtN));
 	}
 	
-	
-	private double threshold(int index) {
-		return (this.openCount[index] / this.n);
-	}
-	
 	private void runExperiment(int index) {
 		int tOpenCount = 0;
 		while(!this.p[index].percolates()) {
@@ -91,11 +86,4 @@ public class PercolationStats {
 		}
 		this.openCount[index] = tOpenCount;
 	}
-	
-	
-	public static void main(String[] args) {
-		PercolationStats ps = new PercolationStats(200, 100);
-		System.out.printf(" mean was: %.15f%n standard deviation was: %.15f%n confidenceLow was: %.15f%n confidenceHigh was: %.15f%n", ps.mean(), ps.stddev(), ps.confidenceLow(), ps.confidenceHigh());
-	}
-	
 }
